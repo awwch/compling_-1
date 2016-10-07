@@ -28,6 +28,7 @@ def values(texts, word, wind):
     stop = list(string.punctuation)
     stop.append('–')
     tokens = nltk.word_tokenize(texts)
+    tokens = tokens.lower()
     indices = ([i for i, j in enumerate(tokens) if j == word])  # finds indices of word in texts
     for i in indices:
         frame = tokens[(i-wind):(i+wind)]   # finds window of word based on given window value
