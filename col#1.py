@@ -57,14 +57,24 @@ def values(texts, word, wind):
     #  and dictionary --> {collocate:[co-occurrence count, total collocate count, mean dist, std_dev dist], ...}
 
 
-def chi_sq():  
+def chi_sq(): 
+    result = []
+    tokens = []
+    chi = []
     w1 = float(vals[1])#key word in corpus without collocates 
     none = float(vals[0]) - w1 #all tokens in corpus without key word and collocate
     for token in list(vals[2].keys()):
+        if token not in tokens:
+            tokens.append(token)
         for val in list(vals[2].values()):
             w2 = float(val[1]-val[0]) #amount of every colocate in corpus
             both = float(val[0]) #amount of every collocation in corpus
-        return(float(vals[0])*(both*none-w1*w2)**2/(both+w2)*(both+w1)*(both+none)*(none+w1))
+            c = float(vals[0])*(both*none-w1*w2)**2/(both+w2)*(both+w1)*(both+none)*(none+w1)
+            if c not in chi:
+                chi.append(c)
+    for i in range(len(tokens)):
+        result.append({tokens[i]:chi[i]})
+    return(result)
 # def loglike():
 #                      #NB Please only return 100 best results!!!
 #                      #NB and return results in dictionary format with collocates as keys and their values!!!
